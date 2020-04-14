@@ -1,0 +1,157 @@
+     1                                  
+     2                                  ;irassunk ki egy hexa szamot eax-bol
+     3                                  
+     4                                  %include 'io.inc'
+     5                              <1> %ifndef __IO_INC__
+     6                              <1> %define __IO_INC__
+     7                              <1> 
+     8                              <1> ; Reads a 32-bit integer
+     9                              <1> ; Out: EAX - integer
+    10                              <1> extern io_readint
+    11                              <1> 
+    12                              <1> ; Reads a 32-bit integer in base-16
+    13                              <1> ; Out: EAX - integer
+    14                              <1> extern io_readhex
+    15                              <1> 
+    16                              <1> ; Reads a 32-bit integer in base-2
+    17                              <1> ; Out: EAX - integer
+    18                              <1> extern io_readbin
+    19                              <1> 
+    20                              <1> ; Reads a string into the specified buffer (null-terminated)
+    21                              <1> ; The size of the buffer should be at least 256 bytes!
+    22                              <1> ; In: EAX - pointer
+    23                              <1> extern io_readstr
+    24                              <1> 
+    25                              <1> ; Writes a 32-bit integer
+    26                              <1> ; In: EAX - integer
+    27                              <1> extern io_writeint
+    28                              <1> 
+    29                              <1> ; Writes a 32-bit integer in base-16
+    30                              <1> ; In: EAX - integer
+    31                              <1> extern io_writehex
+    32                              <1> 
+    33                              <1> ; Writes a 32-bit integer in base-2
+    34                              <1> ; In: EAX - integer
+    35                              <1> extern io_writebin
+    36                              <1> 
+    37                              <1> ; Writes a string (null-terminated)
+    38                              <1> ; In: EAX - pointer
+    39                              <1> extern io_writestr
+    40                              <1> 
+    41                              <1> ; Reads a 32-bit float
+    42                              <1> ; Out: XMM0 - float
+    43                              <1> extern io_readflt
+    44                              <1> 
+    45                              <1> ; Writes a 32-bit float
+    46                              <1> ; In: XMM0 - float
+    47                              <1> extern io_writeflt
+    48                              <1> 
+    49                              <1> ; New line
+    50                              <1> extern io_writeln
+    51                              <1> 
+    52                              <1> %endif
+    53                                  %include 'mio.inc'
+    54                              <1> %ifndef __MIO_INC__
+    55                              <1> %define __MIO_INC__
+    56                              <1> 
+    57                              <1> ; Reads a character
+    58                              <1> ; Out: AL - ASCII code
+    59                              <1> extern mio_readchar
+    60                              <1> 
+    61                              <1> ; Writes a character
+    62                              <1> ; In: AL - ASCII code
+    63                              <1> extern mio_writechar
+    64                              <1> 
+    65                              <1> ; Writes a string (null-terminated)
+    66                              <1> ; In: EAX - pointer
+    67                              <1> extern mio_writestr
+    68                              <1> 
+    69                              <1> ; New line
+    70                              <1> extern mio_writeln
+    71                              <1> 
+    72                              <1> %endif
+    73                                  
+    74                                  global main
+    75                                  
+    76                                  section .text
+    77                                  main:
+    78 00000000 B830000000              mov eax, '0'
+    79 00000005 E8(00000000)            call mio_writechar
+    80 0000000A B878000000              mov eax, 'x'
+    81 0000000F E8(00000000)            call mio_writechar
+    82                                  
+    83 00000014 B8EBFFFFFF              		mov eax, -21
+    84 00000019 BB10000000              mov ebx,16
+    85 0000001E 31C9                    xor ecx, ecx
+    86                                  
+    87 00000020 83F800                  	cmp eax,0
+    88 00000023 7C64                    	jl .negativ
+    89                                  
+    90                                  .next:
+    91                                  
+    92 00000025 99                      cdq
+    93 00000026 F7FB                    idiv ebx
+    94 00000028 52                      push edx
+    95 00000029 83C101                  add ecx,1
+    96 0000002C 83F800                  cmp eax, 0
+    97 0000002F 75F4                    jne .next
+    98                                  
+    99 00000031 BA07000000              	mov edx,7
+   100 00000036 29CA                    	sub edx,ecx
+   101                                  	
+   102                                  	.nullasok:
+   103 00000038 50                      	push eax
+   104 00000039 B830000000              	mov eax, '0'
+   105 0000003E E8(00000000)            	call mio_writechar
+   106 00000043 58                      	pop eax
+   107 00000044 83EA01                  	sub edx,1
+   108 00000047 83FA00                  	cmp edx,0
+   109 0000004A 7DEC                    	jge .nullasok
+   110                                  	
+   111                                  .ki:
+   112 0000004C 58                      pop eax
+   113 0000004D 83F800                  cmp eax,  0
+   114 00000050 7D00                    jge .szamjegy1
+   115                                  
+   116                                  	.szamjegy1:
+   117 00000052 83F809                  	cmp eax, 9
+   118 00000055 7E05                    	jle .szamjegy
+   119                                  	
+   120 00000057 83F80A                  cmp eax, 10
+   121 0000005A 7D15                    jge .betu
+   122                                  
+   123                                  .szamjegy:
+   124 0000005C 83C030                  add eax, '0'
+   125 0000005F 83E901                  sub ecx, 1
+   126 00000062 E8(00000000)            call mio_writechar
+   127 00000067 83F900                  cmp ecx,0
+   128 0000006A 7FE0                    jg .ki
+   129 0000006C 83F900                  cmp ecx,0
+   130 0000006F 7425                    je .end
+   131                                  
+   132                                  .betu:
+   133 00000071 83C041                  add eax, 'A'
+   134 00000074 83E80A                  sub eax, 10
+   135 00000077 83E901                  sub ecx, 1
+   136 0000007A E8(00000000)            call mio_writechar
+   137 0000007F 83F900                  cmp ecx,0
+   138 00000082 7FC8                    jg .ki
+   139 00000084 83F900                  cmp ecx,0
+   140 00000087 740D                    je .end
+   141                                  
+   142                                  .negativ:
+   143 00000089 F7D8                    neg eax
+   144 0000008B 50                      push eax
+   145 0000008C B8FFFFFFFF              mov eax, 4294967295
+   146                                  ;call mio_writechar
+   147 00000091 5E                      pop esi
+   148 00000092 29F0                    sub eax,esi
+   149 00000094 EB8F                    jmp .next
+   150                                  
+   151                                  .end:
+   152 00000096 C3                      ret
+   153                                  
+   154                                  
+   155                                  section .data
+   156                                  
+   157                                  section .bss

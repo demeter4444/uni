@@ -1,0 +1,78 @@
+-32 bites intel processzorok szegmensregiszterei 16 bitesek
+
+-tulcsordulas = hiba = van kifutobit,nincs atvitel / nincs kifutobit, van atvitel
+	megj : pozitiv + negativ sose csordul tul
+
+-push : esp -> -4 (32 bit), ebp nem valtozik
+ pop forditva
+
+-call : esp -> -4
+-ret : esp -+4
+	ebp idk
+
+-jmp nem valtoztat semmit
+
+-egeszeket jelento 1es bitet csak extended tipusu abrazolasnal abrazolunk (63. bit)
+
+-overflow flag beall : elojeles osszeadas tulcsordulasakor
+
+-movsb-kor az esi erteke a D jelzobit erteketol fugg
+
+-carry flag beall : elojelmentes tulcsordulaskor
+
+-zero flag beall : a ket operandus egyenlo
+
+-sal shl ugyanaz
+
+-shr sar oszt 2vel. sal elojelhelyesen. nem mindig cserelheto ki az idiv 2 hatvanyainal.
+
+-negativ osztva pozitiv az pozitiv.
+
+-az sse muveletek logikusan kezelik a hatarertekeket (1/0 = +inf, -1/0 = -inf)
+
+-alligned -> memoriacim 16al oszthato
+
+-lea ugy mukodik mint egy autista mov (lea cel, [forras])
+
+-logikai utasitasok bitenkent dolgoznak
+--------------------------------------------
+-gtdr regiszter -> a globalis deszkriptortabla kezdocime es merete
+
+-abort kivetel -> hard eszkozok
+
+-celoperandus (elso) nem lehet kozvetlen ertek
+
+-direkt cimzes -> az operandus a memoriacimen van
+
+-fault -> a program NEM folytatodik
+
+-trap -> folytatodhat a kivetelt kivalto utasitas utani utasitassal
+
+-valos uzemmodban tobb szelektor
+ vedett uzemmodban egy
+
+-valos uzemmodban egy szegmens 64kB
+
+-lapozo egyseg: LINEARIS cim -> fizikai cim
+
+-szelektor tartalma -> index
+
+-tss = task allapota
+
+-lapcimtar fizikai cime: cr3
+
+-deszkriptor nem tartozik : lapok 
+
+-privilegiumszintet a kodszegments privilegiumszintje hatarozza meg
+
+-szelektor lokalis vagy globalis -> TI bit
+
+-melyik regiszter nem szelektort tartalmaz: gdtr
+
+-dirty bit = tortent-e iras
+
+-redszerhivas -> trap kivetel
+
+-virtualis memoriacim = 16bites szelektor, 32bites offset
+
+-valos uzemmodban egy szegmenregiszter a szegmens szamot tartalmazza -> true
