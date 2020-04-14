@@ -1,0 +1,292 @@
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+nagy O -felso korlat
+T(n) = O(f(n)) akkor és csakis akkor, ha léteznek a c és n0 konstansok,
+hogy: T(n)<c f(n), bármely n = n0
+Fontos: a c és n0 konstansok nem függhetnek n-tol
+
+nagy omega -also korlat
+T(n) = O(f(n)) akkor és csakis akkor, ha léteznek a c és n0 konstansok,
+hogy: T(n)=c f(n), bármely n = n0
+
+nagy theta -also es felso korlat
+T(n) = T(f(n)) akkor és csakis akkor, ha léteznek a c1, c2 és n0 konstansok,
+hogy: T(n)=O( f(n)) és T(n)=O( f(n))
+
+Mester modszer
+T(n) = a T(n/b) + O(nd),
+- a - rekurzív hívások száma, 
+- b - a részfeladat mérete az eredeti feladat 1/b-szerese 
+- d - a hatványkitevo az “összerakási muvelet” futási idejében
+
+Helyettesito modszer
+A rekurziók helyettesíto módszerrel való megoldása két lépésbol áll:
+1. Megsejtjük a megoldást.
+2. Meghatározzuk, teljes indukcióval az állandókat és igazoljuk a megoldás helyességét.
+A helyesnek vélt megoldást behelyettesítjük a függvénybe, miközben az indukciós feltevést kisebb értékekre alkalmazzuk.
+Ez a módszer csak akkor alkalmazható, ha a helyes válasz könnyen megsejtheto
+
+rekurzios fa
+- A rekurziós fa minden egyes csúcsa egy részfeladatnak felel meg: 
+a függvény kiértékelésekor végrehajtódó minden rekurziós híváshoz tartozik egy csúcs.
+- Szintenként összegezzük a csúcsok költségét, majd az így kapott szintenkénti költségeket összegezzük, hogy megkapjuk a teljes költséget
+
+Futási ido ˜ muveletek száma 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+kupacok
+
+elemeknek vannak kulcsok. a kulcsok osszehasonlithatok.
+cel: max/min kereses
+
+szerkezet:
+ majdnem teljes binaris fa
+ 1 cspontnak max 2 gyerek
+ minimalis magassagu
+ balrol jobbra toltjuk fel
+
+tulajdonsag:
+ minden szulo nagyobb a gyereknel (kulcs)
+ gyoker a legnagyobb
+ cspontok sorrendje felcserelheto, ha nem sertik a tulajdonsagot.
+
+szulo = i/2
+gyerek = 2*i (+1)
+
+kupacol = visszaalitja a kupac tulajdonsagot (log n)
+az i. elemet lefele gorgeti.
+legyen i j k (j es k i-nek gyerekei)
+ha a[i] level vege
+m = max(i,j,k). ha m=i vege
+kuklonben swap a[i] a[m]
+kupacol m
+
+beszuras - log n
+beszurjuk az utolso helyre - O(1)
+kupacol - O(log n)
+
+maximum (gyoker) torlese - log n
+kicsereljuk az elso elemet az utolsoval O(1)
+kupacol(1) O(log n)
+
+kupac epitese tombbol (meret=n) 
+i -> 1 tol n/2-ig kupacol(i)  -az elso nem leveltol kupacolunk
+
+kivalasztasos rendezes - o(n^2)
+kupacrendezes(heapsort) - o(n log n)
+ letrehozunk a tombbol egy kupacot
+ minden lepesben berakjuk a maximumot a tomb vegere, majd toroljuk (vagy minimumkupacot hasznalunk s forditva)
+
+
+elsobbsegi sor(priority queue)
+Esemény-vezérelt szimuláció
+- a prioritási sor elemei a szimulálandó események 
+- minden eseménynek adott a bekövetkezési idopontja 
+- az eseményeket a bekövetkezési idejüknek megfelelo sorrendben kell szimulálni, mivel egy esemény bekövetkezése egy másik esemény jövobeli bekövetkezését okozhatja
+=minimum kupac
+ elemek=esemenyek objektumai
+ kulcsok=bekovetkezesi ido
+
+median keresese - adott sorozatban amit elemenkent kapunk. minden i. lepesben mediant kerunk
+= 2 kupac ( 1 min 1 max) mindenikben minden lepesben i/2 elem kb.
+ha egy uj elem kisebbvagyegyenlo mint a kiskupac maximuma, betesszik a kicsibe
+ha nagyobb mint a nagykupac minimuma a nagyba tesszuk
+ha egyikben tobb van mint masikban legalabb 2 elemmel , tegyuk at az elemeket egyikbol masikba.
+median=a kicsi maximuma es/vagy a nagy minimuma
+djikstra,kriskal,sorozatos min/max
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+fak
+
+hierarhikus adatszerkezet (szekvencialis altalanosan)
+homogen,dinamikus
+minden elemnek pontosan egy elodje es tetszoleges szamu utodja van(kiveve gyoker)
+rendezett fa: lényeges az ugyanazon csúcsból kiinduló élek sorrendje
+binaris fa: max 2 utod (szigoru: 0 vagy 2 utod)
+rendezett binaris fa: bal/jobb rakovetkezo + bal/jobb reszfa
+
+nembinarisfa to binarisfa = minden utod balra kerul. ha tobb utod van akkor lancolva egymas jobbjan
+abrazolas: 
+ folytonos: adat,bal,jobb (tombok)
+  tomor,gyors hozzaferes, jo teljesitmeny. lassu torles,beszuras
+ szetszort(lista): elem struktura(adat,balcim,jobbcim). minden elemhez eljuthatunk a gyoker mutato segitsegevel
+ gyors beszuras,torles. rossz teljesitmeny.
+
+bejarasok
+preorder (gyoker, bal, jobb)
+ ha a fa ures -> vege
+ dolgozzuk fel a gyokeret
+ jarjuk be a bal oldalt preorderrel
+ jarjuk be a jobb oldalt preorderrel
+
+inorder (bal,gyoker,jobb) (elobb lemegy a gyaszba s csak utana kezd dolgozni)
+ ha a fa ures -> vege
+ jarjuk be a bal oldalt inorderrel
+ dolgozzuk fel a gyokeret
+ jarjuk be a jobb oldalt inorderrel
+
+postorder (bal,jobb,gyoker) (hasonlo inorderhez csak osszevissza megy)
+ ha a fa ures -> vege
+ jarjuk be a bal oldalt postorderrel
+ jarjuk be a jobb oldalt postorderrel
+ dolgozzuk fel a gyokeret
+
+zarojelek - prefix infix postfix 
+ugyanugy mint fent.
+kifejezesfa = a levelek operandusok, a nem levelek operatorok
+mas muvelet mind3 bejarasra
+
+minimalis magassagu fa=adott elemszam, legalso szint kivetelevel mindenhol a leheto legtobb elem van
+tokeletesen kiegyensulyozott binarisfa=barmely elem bal es jobb reszfajaban max 1 elem van +- -ba (min magassagu)
+letrehozas (rekurziv)
+ elso elem = gyoker
+ a tovabbi n-1 elem: 
+  nb=n/2 elembol a bal t.k reszfat epitjuk
+  nj=n-1-nb elembol a jobb t.k oldali reszfat 
+
+binaris keresofa
+-kulcsok (egyediek, kulonben van szabaly)
+-minden adatelem
+ bal oldali reszfajaban levo elemek kisebbek maganal
+ jobb oldali reszfajaban levo elemek nagyobbak maganal
+kereses - O(h) h=magassag
+ha ures -> nincs benne
+osszehasonlitjuk a gyoker kulcsat a keresett elemmel
+ ha egyenlo megvan
+ ha kisebb megyunk balra
+ ha nagyobb megyunk jobbra
+
+torles
+ha ures -> nem tudunk torolni
+osszehasonlitjuk a gyokeret a torolni kivant ertekkel
+ ha kisebb toroljuk balrol
+ ha nagyobb toroljuk jobbrol
+  ha megvan akkor nezzuk hany utoda van
+   ha 0 toroljuk
+   ha 1 felulirjuk a gyokeret a rakovetkezovel
+   ha 2 felulirjuk a gyokeret a bal reszfa legjobboldalabbi elemevel, majd ezt toroljuk(a bal reszfabol a legjobboldalabbit)
+
+min/max kereses
+lemegyunk csak a bal/jobb reszfa vegere
+
+elem kovetkezoje
+ ha van jobb gyerek akkor a jobb reszfa minimuma
+ ha nincs jobb gyerek akkor felfele lepunk amig egy nagyobb erteket kapunk. visszateritjuk az elso ilyet.
+
+beszuras
+ha ures -> beszurjuk
+osszehasonlitjuk a gyokeret a beszurando ertekkel
+ ha kisebb beszurjuk balra
+ ha nagyobb jobbra
+ ha egyenlo nem szurhato be (azonos kulcs lenne)
+
+i. elem keresese
+taroljuk el minden cspontban a meretet(hany elem van a reszfaban)
+x gyereke y,z. meret(x)=meret(y)+meret(z)+1 (hatranyos, mert mindig kell frissiteni torlesnel es beszurasnal)
+a = meret(y)
+ha a = i-1 akkor x
+ha a >=i akkor keressuk meg az i. elemet x bal reszfajaban
+ha a <i-1 akkor keressuk meg az i-a-1 elemet x jobb reszfajaban
+
+kiiras novekvo sorrendben
+inorder
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+AVL fa - Adelson-Velskii es Landis
+-lazitjuk a t.k fak megszoritasat
+-megelegszunk a magassag szempontjabol egyensulyozott fakkal.
+
+barmely cspont ket reszfalyanak MELYSEGE kozotti kulonbseg max 1
+
+avl fa minden reszfaja avl fa
+minden tokeletesen kiegyensulyozott fa avl fa (forditva nem)
+minden level az utolso ket szinten van
+
+bevezetunk uj muveletet
+forgatas
+bal forgatas = x,y megcsereljuk, a b c -t jobbra shifteljuk. -> szimmetrikus
+jobb forgatas = x,y megcsereljuk, a b c-t balra shifteljuk -> szimmetrikus
+
+beszuras (m = melyseg)
+csak akkor serul az avl tulajdonsag ha m(bal)>m(jobb)
+
+LL beszuras( bal oldali reszfa bal oldali reszfajaba szurunk)
+->avl serul
+->jobbra forgatunk -> beszurjuk
+
+LR beszuras( bal oldali reszfa jobb oldali reszfajaba szurung)
+->avl serul
+->2 forgatas -> beszurjuk (cserel, lancol,felhuz -> egyensulyoz)
+
+RL RR hasonloan
+
+torles
+ha serul
+megkeressuk hol serul
+forgatunk
+
+avl mikor?
+gyors muveletek rendezett adathalmaz
+gyorskereses
+hatrany: sok modositas nemjo. kiegyensulyozas koltseges es bonyolult.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PF fa(piros fekete)
+binaris keresofak
+garantalt logn ido
+
+minden cspont piros vagy fekete
+NULL erteku mutato = fan kivuli levelek
+aranylag kiegyensulyozottak
+
+a fa gyokere mindig fekete
+a fa minden levele(null) fekete
+piros szulonek csak fekete gyerekei lehetnek
+minden cspont eseten az osszes olyan uton ami adott cspontbol indul ki es levelig vezet, ugyanannyi a fekete cspontok szama
+(szoval : minden gyoker-NULL utbonal ugyanannyi fekete cspontot tartalmaz)
+
+n csomopont. minden pf fa max magassaga: 2log2(n+1)
+
+beszuras log-n
+beszuras o1
+pf visszaallitas (atszinezesek, forgatasok) (legtobb 2 forgatas)
+
+alkalmazasok
+linux kernel utemezes
+-hash javaban
+
+pf vs avl
+same muveletek 
+same futasi ido
+kereses avl-ben gyorsabb
+beszuras pf-be gyorsabb
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+splay fak
+onszervezo binaris fa
+a gyakran keresett elemek keznel legyenek
+
+a gyakran keresett elemek a fa tetejen vannak
+
+nem feltetlenul kiegyensulyozottak
+futasi ido fugg az elem helyerol (gyakran keresett - konstans ritkan keresett-n. atlag-logn)
+
+kereses
+kereses
+splay
+ x fontossaga nott
+ x elemet forgatasokkal gyokerbe mozditjuk
+
+x a keresett cspont, y szuloje, z nagyszuloje
+ha x bal gyereke ynak -> zig(jobbforgatas)
+ha x bal gyereke ynak es y bal gyereke znek -> zigzig
+ha x bal gyereke ynak es y jobb gyereke znek -> zagzig
+addig ismeteljuk amig x nem gyoker.
+
+beszuras
+beszuras
+splay
+
+alkalmazasok
+routerek
+garbage collection
+sed
+gcc
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

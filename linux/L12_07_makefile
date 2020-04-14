@@ -1,0 +1,12 @@
+
+CCFLAGS = -Wall
+
+all: p pb
+
+p : L12_07_dtim1806.c
+	gcc L12_07_dtim1806.c -o p
+
+pb : L12_07_dtim1806_bin.c
+	gcc L12_07_dtim1806_bin.c -o pb
+
+

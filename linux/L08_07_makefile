@@ -1,0 +1,12 @@
+p : L08_07_dtim1806_fg.o L08_07_dtim1806_fo.o
+	gcc L08_07_dtim1806_fg.o L08_07_dtim1806_fo.o -o p -lm
+
+L08_07_dtim1806_fg.o : L08_07_dtim1806_fg.c tavolsag.h
+	gcc L08_07_dtim1806_fg.c -c
+
+L08_07_dtim1806_fo.o : L08_07_dtim1806_fo.c tavolsag.h
+	gcc L08_07_dtim1806_fo.c -c
+
+.PHONY : clean
+clean :
+	rm -f p L08_07_dtim1806_fg.o L08_07_dtim1806_fo.o core *~

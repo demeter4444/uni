@@ -1,0 +1,115 @@
+#!/bin/bash
+
+if [ $# -lt 1 ] 
+then
+echo "Hasznalat: $0 fajlok"
+exit 1
+fi
+
+for i in $* ;do
+if [ ! -f $i ]
+then
+echo "$i nem fajl/helytelen eleresi utvonal"
+exit 2
+fi
+done
+
+sec=1
+allomanyok=0
+modositasok=0
+
+for i in $* ;do
+cp $i "$i"_backup
+done
+
+while [ 1 ]; do
+if [ `expr $SECONDS % 10` -ne 0 ]
+then
+        let sec=1
+fi
+
+if [ `expr $SECONDS % 10` -eq 0 ]
+then
+if [ $sec -eq 1 ]
+then
+
+for i in $* ;do
+
+if [ `diff $i "$i"_backup|wc|sed "s/  */ /g"|cut -d" " -f2` -gt 2 ] 
+then
+	if diff $i "$i"_backup|grep "\-\-\-"
+	then
+	echo
+	else
+	cp "$i"_backup $i
+	echo "Szabalytalan modositas $i -ben!"
+	let modositasok+=1
+	fi
+fi
+if [ `diff $i "$i"_backup|wc|sed "s/  */ /g"|cut -d" " -f2` -eq 2 ]
+then
+	let allomanyok+=1
+	sorok=`wc $i|sed "s/  */ /g"|cut -d" " -f2`
+	sorokb=`wc "$i"_backup|sed "s/  */ /g"|cut -d" " -f2`
+	if [ $sorok -lt $sorokb ]
+	let modositasok+=1
+	then
+	echo "$i allomany `diff $i "$i"_backup|head -n1|cut -d"a" -f1`.sora torolve : `date +"%H:%M:%S"`" >> valtozasok.log
+	echo "Torolt sor:" >> valtozasok.log
+	sor=`diff $i "$i"_backup|head -n1|cut -d"a" -f1`
+	sed "${sor}q;d" "$i"_backup >> valtozasok.log
+	fi
+
+        if [ $sorok -gt $sorokb ]
+        then
+	let modositasok+=1
+        echo "$i allomany `diff $i "$i"_backup|head -n1|cut -d"d" -f1`.sora beillesztve : `date +"%H:%M:%S"`" >> valtozasok.log
+        echo "Beillesztett sor:" >>valtozasok.log
+	sor=`diff $i "$i"_backup|head -n1|cut -d"d" -f1`
+        sed "${sor}q;d" $i >> valtozasok.log
+        fi
+
+	if diff $i "$i"_backup|grep "\-\-\-" >>/dev/null
+	then
+	if [ $sorok -eq $sorokb ]
+        then
+	let modositasok+=1
+        echo "$i allomany `diff $i "$i"_backup|head -n1|cut -d"c" -f1`.sora modositva: `date +"%H:%M:%S"`" >> valtozasok.log
+        echo "Regi sor:" >> valtozasok.log
+	rsor=`diff $i "$i"_backup|head -n1|cut -d"c" -f1`
+        sed "${rsor}q;d" "$i"_backup >> valtozasok.log
+	echo "Uj sor:" >>valtozasok.log
+	usor=`diff $i "$i"_backup|head -n1|cut -d"c" -f1`
+	sed "${usor}q;d" $i >> valtozasok.log
+        fi
+	fi
+
+fi
+
+      
+
+
+done
+
+for i in $* ;do
+cp "$i" "$i"_backup
+done
+
+if [ `expr $SECONDS % 60` -eq 0 ]
+then
+	if [ $allomanyok != 0 ]
+	then
+	echo "$allomanyok modositott allomany"
+	fi
+	if [ $modositasok != 0 ]
+	then
+	echo "$modositasok modositas"
+	fi
+allomanyok=0
+modositasok=0
+fi
+
+fi #belso 5masodperces if
+fi #kulso 5masodperces if
+done #vegtelen ciklus
+

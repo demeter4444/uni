@@ -1,0 +1,137 @@
+nem kell
+
+borukva
+a*
+belman kalaba
+boykov
+dinic
+legkisebb utolso szekvencialis szinezes
+kempler
+stabil hazassag
+edmonds
+extrem grafok
+zarankiewitz
+10.bol az algoritmusok
+
+
+kell 
+
+//edmonds karp
+//altalanositott folyam
+extrem grafok -> ramsay
+hipergrafok
+-----------------------------------------------------------------------------
+graf rendje = csucsok szama
+graf nagysaga/rangja = elek szama
+egyszeru graf- nincs parhuzamos el, hurokel
+teljes graf - minden 2 csomopont kozott van el
+teljes graf keplete: n(n-1)/2=e
+komplementer graf - ugyanazok a cspontok, az elek megforditva(ahol volt, nincs, ahol nincs, van)
+ut/seta/kor/stb abrazolasa : cspont el cspont el ... cspont.	
+warshall(tavolsagmatrix):3 for, minimalis tavolsag ij es ik+kj kozott(inic. vegtelen)
+cayley: Kn-nek n^(n-2)
+ feszitofaja van
+a csomopontok fokszamanak osszege = 2* elek szama
+huffman-legkisebbeket paronkent kotjuk ossze. fentrol lefele bal 0 jobb 1
+(csak fak)prufer dekodolas: felirjuk a legkisebb olyan indexet ami nincs a kodban. ez leszarmazottja az elsonek a grafban. balra toljuk. n-szer ismetlodik.(kod hossza)
+(csak fak)prufer kodolas: levelektol indulunk, leirjuk, hogy mibol szarmazik s toroljuk. indexek sorrendjebe megyunk egesz gyokerig
+kruskal: felirjuk az eleket sulyok novkvo sorrendjebe, s ugy hozzuk letre lepesenkent az osszefuggo komponens(eke)t
+prim:ugyanez csak eleket torlunk
+Kn-n cspontu teljes graf.
+n-regularis=minden fokszam n
+izomorf=ugyanaz a graf csak maskepp abrazolva+ (feladat: ujrarajzolgatjuk elenkent, a csomopontokat elnevezzuk megfeleloen pl 1-a 2-b stb)
+automorf=ugyanaz, csomopontok atnevezve (n!)
+fa:n csucs, osszefuggo,kormentes,n-1 el,barmely 2 csucs osszekotesevel kor keletkezik, barmely el torlesevel szetesik
+hamilton=minden csomopont ( dinac - barmely 2k csomopontu grafban, ha barmely csomopont fokszama >= k letezik hamilton kor)
+barmey u v nemszomszedos csucsra, ha fokszama u+v >=n akkor letezik hamilton kor
+kritikus ut: felirjuk a kapcsolatokat: elejet inic. elejetol vegeig: early start=elozo late finishbol a legnagyobb. inic. utolso. vegetol elejere : late start = early finishbol a legkisebb.
+kritikus ut: ahol minden mezo egyenlo.
+ekszentricitas:legkisebb tavolsag minden csomopontbol mindenbe
+
+djikstra levezetes:
+cspontok/feldolgozott-e/distance/parent
+startot inicializaljuk 0 nilel, fel van dolgozva
+utana amig nincs feldolgozva minden, vegigmegyunk az elozo osszes szomszedain, szamolunk tavolsagokat. legkisebb tavolsagut tesszuk feldolgozottba mindig
+tavolsagnal vegyuk figyelembe a mar meglevo + aktualis tavolsagot
+nem mukodik negativ elekre. pl 3 cspont 3 2 -2
+
+bellman ford nem mukodik negativ korokre
+n-1 lepes
+
+johnson = bellman ford hozzaadott csomoponttal + djikstra mindenre
+
+folyam
+ford fulkerson:s-bol megyunk t-be amig lehet. a max folyam mindig annyi amennyi atmehet(a legkisebb el). ezt kivonjuk az aktualis elen, majd egy uj el ami visszafele megy, egyenlo ezzel
+toroljuk ezt az elt. ismeteljuk.a vegso max folyam a reszfolyamok osszege
+edmonds karp: ugyanez csak mindig a legrovidebb lancot valasszuk s-bol t-be
+altalanositott folyam: a kapacitas mellett van also hatar. atalakithato hagyomanyosba
+vagat=azok az elek amiket kivettunk
+
+k5 nem sikba rajzolhato
+k3,3 nem sikgraf
+tartomany=elek hatarozzak meg
+n-e+t=2
+graf osszevonasa = elhagyunk egy 2foku csucsot
+kuratowski: egy osszefuggo graf akkor sikgraf ha nem tartalmaz k5 vagy k3,3mat reszgrafkent
+osszefuggo egyszeru sikgrafban:
+r<=2(n-2)
+m<=3(n-2)
+dualis graf: a csucsok az eredeti graf tartomanyai, az elek a tartomanyok kozotti hatarok
+egy osszefuggo graf akkor es csak akkor sikgraf ha van dualisa
+keresztezesi szam=lerajzoljuk grafot, a leheto legkevesebb keresztezes.
+
+grafok szinezese
+minimalis szamu szinnel kiszinezni egy graf elemeit, ket szomszed ne legyen egyszinu
+kromatikus szam= minimalis szinek szama csomopontoknal
+2 szinnel akkor es csak akkor szinezheto egy graf, ha paros
+paros graf -> 2 reszre bonthato csomopontok, van kapcsolat a ketto kozott
+barmely graf eseten kromatikus szam <= maxfokszam+1
+szekvencialis szinezes: csomopontok halmazok szinek a{1} b{1,2} stb. mindig kivalasztunk 1-et s nezzuk a kovetkezot.
+kromatikus polinom: fa:t^n, Kn: t*(t-1)*..*(t-n-1)
+
+parositas
+egy graf akkor es csak akkor paros ha nem tartalmaz paratlan hosszusagu kort
+parositas=fuggetlen elek halmaza
+maximalis=legtobb elt tartalmazza. altalaba az atlok
+maximum=legtobb csomopontot
+teljes=legtobb minden
+hopcroft-karp=szevasz. paratlan szamu parositasok novekvo sorrendbe?
+magyar modszer:
+soronkent kivalaszjuk a legkisebb elemet. kivonjuk a tobbibol.ugyanezt oszloponkent.
+minimalis szamu vonallal lefedjuk a 0-kat
+a nem lefedettekbol kivalasztjuk a legkisebbet. kivonjuk a tobbibol. (ami 2vel van lefedve ahoz hozzaadjuk)
+ismeteljuk amig nem annyivel fedjuk le ahany a matrix merete.
+minden sorbol/oszlopbol csakis 1 lefedett 0at valasztunk. az eredeti matrixban ezeket az elemeket osszeadjuk. ez a min osszegu max parositasunk. ha max osszegu max kell akkor elobb kivalasszuk a matrix maximumat, ebbol kivonjuk az osszes elemet.
+
+hamilton, euler - easy
+euler - valami faszsag algoritmusok amik mennek automatikusan(fleury)
+
+extrem graf
+ramsay-R(m,k) m-Km reszgraf vagy a komplemetereben Kk reszgraf, n-1 csucs
+
+halozatok
+graf atmeroja - a legnagyobb tavolsag (elek cspontok kozott)
+freeman - (summai1->n(legnagyobb fokszamu cspont fokszama - i cspont fokszama)) / (n-1)(n-2)
+koztessegi = summaj<k legrovidebb utak szama amik tartalmazzak i-t / legrobidebb utak szama 
+normalizalt = koztessegi/(n-1)(n-2)/2
+kozelsegi = summai1->n (tavolsag i es j kozott) inverze
+normalizalt = kozelsegi/n-1
+sajatertek-szevasz
+pagerank-szevasz
+halozat surusege = elek szama/lehetseges elek szama
+klaszterezu(cluster)= 3*haromszogek szama/osszekapcsolodo harmasok
+skalafuggetlen halozat = fokszamok hatvanyosan oszlodnak el
+
+hipergraf
+az elek halmazszeruen vannak abrazolva
+sikbarajzolhato - egy oldalon cspontok masikon elek. osszekotod, ha nincs keresztezodes cool
+monofokszam - az a smecher metszetes cucc (x1(x3)x2) x3-2 
+gyenge torles - csak az torlodik
+erosen - minden ami hozza tartozik
+gyenge szinezes = a monofokszamok csokkeno sorrendjeben toroljuk mindig a legnagyobbat amig minden el kulon van egymastol -> szinek
+megszoritasi graf - beteszunk x0at a grafba, tavolsag mindentol 0, kioszamoljuk legkisebb tavolsagokat x0bol mindenbe
+
+catalan szam- CN=1/(n+1) * kombinacioja 2n n-en
+kombinacio = n!/k!*(n-k)!
+
+

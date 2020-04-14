@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]
+	then
+	echo "Hasznalat: $0 prefixek allomanyok"
+	exit 1
+fi
+
+for i in $*; do
+if [ ! -f $i ]
+	then
+	echo "$i nem allomany!"
+	exit 2
+fi
+done
+
+file=$1
+shift
+
+for i in $*; do
+echo "Feldolgozott allomany: $i"
+while read line
+do
+
+	if grep -o "$line[\-\.\*][0-9]\{6\}[^0123456789]*" $i >>/dev/null
+	then
+	tsz=`grep -o "$line[\-\.\*]*[0-9]\{6\}" $i`
+	echo "$tsz"
+	echo "$tsz" >> "tel_$i"	
+	sed -i 's/^/*/g' tel_$i
+	fi
+	done <"$file"
+
+done 
+

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+	then
+	echo "Hasznalat: $0 <felhasznalok>"
+fi
+
+for i in $* ;do
+bennevan=0
+	if id $i  >> /dev/null
+	then
+	let bennevan=1
+	fi	
+
+if [ $bennevan -eq 1 ]
+then
+echo "$i letezik"
+echo "csoportja:"
+grp=`grep $i /etc/passwd|cut -d: -f4`
+echo $grp
+grep $grp /etc/group|cut -d: -f1
+
+echo "neve:"
+grep $i /etc/passwd|cut -d: -f5
+if [ `grep $i /etc/passwd|cut -d: -f4` -eq 600 ]
+then
+echo "kepzese:"
+eval echo "~$i|cut -d/ -f4"
+echo "ev:"
+eval echo "~$i|cut -d/ -f5"
+fi
+
+else
+echo "$i nem letezik"
+fi
+
+done

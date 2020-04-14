@@ -1,0 +1,7 @@
+sz kl : L11_07_dtim1806_sz.c L11_07_dtim1806_kl.c struktura.h
+	gcc L11_07_dtim1806_sz.c -o sz
+	gcc L11_07_dtim1806_kl.c -o kl
+
+.PHONY : clean
+clean :
+	rm -f sz kl core *~
