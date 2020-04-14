@@ -1,0 +1,59 @@
+modularis prog = reszfeladatok, osszefuzve
+Böhm és Jacopini: bármely algoritmus megvalósítható a három alapstruktúrával: szekvencia, elágazás (döntés) és az eloltesztelo ismeretlen lépésszámú ciklus (iteráció).
+• Verifikáció: a kimenet jelentését vizsgálja 
+• Validáció: a bemenetnek és kimenetnek meg kell felelnie a specifikációban leírtaknak
+Hatékonyság: A program hatékonysága a futási idovel és a felhasznált memória méretével arányos – minél gyorsabb, illetve minél kevesebb memóriát használ, a program annál hatékonyabb.
+Röviden: Az algoritmus egy adott feladatkör megoldására kidolgozott eljárás, amely utasításszeruen elore megadott lépések sorozatából áll.
+• Optimális: a leghatékonyabb algoritmus.
+Hoare és Dijkstra: az algoritmusok leírására néhány alapstruktúrát használunk, amelyeknek egyetlen „bejárata” és egyetlen „kijárata” van.
+• Bármely algoritmus: alapstruktúrák lineáris szekvenciája.(gyongysor)
+
+• Az algoritmus bizonyos pontjaiban (a ciklusokon belül) értelmezünk egy vagy több megmaradó tulajdonságot, amelynek teljesülnie kell akárhányszor az algoritmus végrehajtása érinti azt a pontot. 
+• Ezt többnyire matematikai indukcióval végezzük. A ciklusinvariáns bizonyos adatok olyan tulajdonsága, amely
+ – teljesül – igaz közvetlenül a ciklus elso iterációjának megkezdése elott 
+– megmarad – ha igaz a ciklus egy iterációjának megkezdése elott, akkor igaz marad a következo iteráció elott is)
+                                                
+a végrehajtás idejét kifejezhetjük n függvényeként. 
+– A futási idot kifejezo képletnek csak a fo tagját tartjuk meg (például, ha a képlet an2 + bn + c, csak az an2 tagot tartjuk meg), mivel az alacsonyabb rendu tagok nagy n-re kevésbé lényegesek. 
+– Szintén figyelmen kívül hagyjuk a fo tag konstans szorzóját, mivel a nagy bemenetekre ezek elhanyagolhatók.
+ • Ez a növekedési rend, és a O(g(n)) függvénnyel jelöljük. 
+
+• Ha egy algoritmust a legkézenfekvobb ötlet alapján tervezünk meg (brute force), sokszor (néha, gyakran) fölöslegesen terheljük a számítógép eroforrásait. • Magyarul: naiv algoritmusnak hívjuk.
+ léteznek optimális naiv algoritmusok!
+
+• Szekvenciális keresés: O(n) (helyben dolgozik) 
+• Kiválogatás: O(n) (dolgozhat helyben vagy használhat segédsorozatot) 
+• Összefésülés: O(n + m) (nem dolgozik helyben) 
+• Bináris keresés: O(log n) (helyben dolgozik) 
+• Buborékrendezés: O(n2) és ?(n) (helyben dolgozik) 
+• Ládarendezés: O(n) (nem dolgozik helyben) 
+• Gyorsrendezés: ?(n log n) és O(n2) (helyben dolgozik) 
+• Összefésülo rendezés: O(n log n) (nem dolgozik helyben) 
+• Kupacrendezés: O(n log n) (helyben dolgozik)
+
+Lépések finomítása: folyamat, amely tart az algoritmus kezdeti vázlatától, a végleges, kidolgozott algoritmusig. 
+– Kiindulunk a feladat specifikációiból és fentrol lefele megtervezzük az algoritmust.
+ – Újabb meg újabb változatokat dolgozunk ki, amelyek eleinte tartalmaznak magyarul leírt magyarázó sorokat, majd ezeket standard utasításokra írjuk át.
+
+• Optimalizáláskor egy kész algoritmus hatékonyságát próbáljuk növelni. 
+• Tehát túl vagyunk a finomításon.
+
+• A feladatok feladatosztályokba sorolhatók a jellegük szerint.
+ennek ertelmebe megkulonboztetunk programozasi teteleket pl. kivalasztas,dontes
+osszes maximum = 1 bejaras, darabot ujrainicializaljuk nagyobb max talalatanal. indexeket darabban mentjuk (felulirodnak)
+
+1. Összehasonlításon alapuló rendezések O(n2):
+ 1.a. Egyszeru felcseréléses rendezés
+ 1.b. Minimumkiválasztásos rendezés 
+1.c. Buborékos rendezés (bubblesort)
+ 1.d. Beszúró rendezés (insertsort)
+ 1.e. Számlálva szétosztó rendezés (válogatás) 
+
+2. Lineáris rendezések:
+ 2.a. Ládarendezés (binsort) 
+2.b. Számjegyes rendezés (radixsort) 
+
+3. nlog n bonyolultságú rendezések
+ 3.a Gyorsrendezés (quicksort) 
+3.b Összefésülo rendezés (mergesort) 
+3.c Kupacrendezés (heapsort)

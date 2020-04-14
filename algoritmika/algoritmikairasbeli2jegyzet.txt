@@ -1,0 +1,105 @@
+REKURZIO -stilus/tehnika
+_______________________________
+-ha az eredmeny rekurziv szerkezetu
+-ha a legjobb modszer a backtrack vagy dei
+-ha a feldolgozando adatok rekurzivan definialtak
+
+k elemu reszhalmaz: x[i-1]+1 tol n-k+i -ig (x megoldastomb) kiirjuk ha i=k
+osszes reszhalmaz: x[i-1]+1 tol n-ig, kiirjuk minden lepesbe
+particio(i,n): 1-tol n-ig
+	ha j<n akkor part(i+1,n-j)
+	kulonben kiir
+___________________________________
+
+
+
+BACKTRACK
+___________________________________
+-vizsgaljuk a vegrehajtashoz szukseges idot. ha nagy, nem backtrackelunk
+-polinomialis ido = elfogadhato (n^k)
+-vizsgaljuk a bemenet meretet, optimalizalasi lehetosegeket
+
+-akkor alkalmazzuk, amikor a megoldasok dekart szorzatanak elemei alkotjak az eredmenyt, melyek eleget tesznek a belso felteteleknek
+
+-elemei:
+	-megfelel(i) -jo e oda az i. elem
+	-backtrack(i) -kivalasztjuk az i. elemet . ha jo akkor ha az utolso kiirjuk, kulonben kivalasztjuk a kovetkezot
+
+1. az x elemeinek jelentese, az m halmaz meghatarozasa
+2. belso feltetelek
+3. folytatasi feltetelek
+4. megiras
+
+8kiralyno
+variacio
+penzosszeg
+labirintus
+targyak
+
+_______________________________________
+
+
+
+DIVIDE ET IMPERA
+________________________________________
+
+-a feladatot fel lehet bontani EGYMASTOL FUGGETLEN reszfeladatokra, amelyeket az eredeti feladathoz hasonlokeppen oldunk meg, de kisebb adathalmazon
+-minimum
+-hanoi
+-quicksort
+-mergesort
+_______________________________________
+
+
+GREEDY
+_____________________________
+
+-optimum kiszamitasok eseten (leg-valami)
+-mindig egyetlen eredmeny
+-mindig lokalis optimumot valasztunk -> a globalis optimum nem garantalt
+-nem backtrack, nincs visszalepes, egy eredmeny
+-rendezunk es valasztunk
+
+-legnagyobb reszosszeg
+-varakozasi ido
+-buszmegallok
+-berbeadas/szinhaz (rendezzuk a vegso ido szerint. sorbamegyunk, megnezzuk hogy a kivalasztott elem kezdete nagyobb-e mint az elotte levo osszes vege)
+-hatizsak (ertek/suly)
+-minimalis feszitofa(kruszkal)
+	-eleket rendezzuk koltseg szerint
+	-kivalasztunk egyet, ha a kompnensek kulonboznek akkor a kisebbikre allitjuk
+	-ha a komponensek megegyeznek nem valaszthatjuk
+	-n-1 el kivalasztas utan stop (n-csomopontok) vagy ha kivalasztottunk minden elt
+
+-minimalis ut(djikstra)
+-utazougynok (kulonbozo kiindulopontok)
+
+random:
+-szam elofordulasa nagyobb e-mint elemszam fele
+-kiralynok
+_________________________________
+
+DINAMIKUS PROGRAMOZAS
+______________________________
+-ha egymastol fuggo reszfeladatokra bonthato
+-minden reszfeladatot csak 1szer oldunk meg, az eredmenyt megorizzuk
+-lepesei:
+	1.megoldjuk a reszfeladatokat, taroljuk eredmenyeit
+	2.felepitjuk a megoldast
+
+-optimum eseten nem kell mindent tarolni
+
+	optimum lepesek:
+	1.bizonyitas h optimalis
+	2.felbontas reszfeladatokra
+	3.rekurziv osszefuggesek
+	4.reszfeladatok megoldasa, csak a szukseges informaciot taroljuk
+	5.eredmeny felepitese
+
+-legrovidebb lanc
+-leghoszabb novekvo reszsorozat
+-berbeadas 2
+
+
+_______________________________
+
